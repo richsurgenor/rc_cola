@@ -18,20 +18,21 @@ def connect():
     driveConfig=driveService.getCharacteristics(driveUuidConfig)[0]
     return "ok"
 
-@app.route('/aicar/forward/', methods=['GET'])
-def forward():
-    driveConfig.write(bytes(b"\x71\x12\xa0"))
+@app.route('/aicar/forward/<int:speed>/<int:time>', methods=['GET'])
+def forward(speed, time):
+    driveConfig.write(bytes(b"\x71" + bytes([speed]) + bytes([time])))
     return "ok" 
 
-@app.route('/aicar/turn-left/<integer:angle>/<integer:time>', methods=['GET'])
+@app.route('/aicar/turn-left/<int:angle>/<int:time>', methods=['GET'])
 def turn_left(angle, time):
     driveConfig.write(bytes(b"\x73" +bytes([angle]) +bytes([time])))
     return "ok"
 
-@app.route('/aicar/turn-right/<string:angle>/<string:time>', methods=['GET'])
+@app.route('/aicar/turn-right/<int:angle>/<int:time>', methods=['GET'])
 def turn_right(angle, time):
-    #driveConfig.write(bytes(b"\x74\x{}\xa{}".format(angle, time)))
+    driveConfig.write(bytes(b"\x74" +bytes([angle]) + bytes([time])))
     return "ok"
 
 if __name__ == '__main__':
-    app.run()
+    app.run(host='0.0.0.0')
+
