@@ -1,0 +1,8 @@
+import picamera
+import requests
+
+
+class CarTraining(object):
+    
+    def  
+    
