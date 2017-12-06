@@ -12,6 +12,7 @@ camera = PiCamera(resolution="160x120")
 direction = None
 
 while True:
+    direction = None
     if keyboard.is_pressed('up') :
         r = requests.get(PATH + 'forward/0/10')
         direction = 'up'
@@ -21,14 +22,15 @@ while True:
     if keyboard.is_pressed('right'):
         r = requests.get(PATH + 'turn-right/2/1')
         direction = 'right'
-    ##if keyboard.is_pressed('down'):
-    ##    r = requests.get('http://localhost:5000/aicar/backward/1/10')
-    ##    direction = 'down'
+    if keyboard.is_pressed('down'):
+        r = requests.get('http://localhost:5000/aicar/180')
+        direction = 'down'
 
-    name = direction
-    time = datetime.datetime.now().strftime("%I:%M:%S %M-%d")
-    name += "-" + time
-    camera.capture("/home/pi/rc_cola/data/" + name + ".jpg")
+    if direction:
+        name = direction
+        time = datetime.datetime.now().strftime("%I:%M:%S %M-%d")
+        name += "-" + time
+        camera.capture("/home/pi/rc_cola/data/" + name + ".jpg")
+        camera.capture(name)
 
-    camera.capture(name)
     time.sleep(.01)
