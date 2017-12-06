@@ -1,6 +1,7 @@
 import requests
 import time
 import keyboard
+import datetime
 from picamera import PiCamera
 
 PATH = 'http://localhost:5000/aicar/'
@@ -29,5 +30,5 @@ while True:
     name += "-" + time
     camera.capture("/home/pi/rc_cola/data/" + name + ".jpg")
 
-    camera.capture(
+    camera.capture(name)
     time.sleep(.01)
