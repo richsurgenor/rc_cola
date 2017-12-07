@@ -2,20 +2,9 @@ import requests
 import time
 import keyboard
 import datetime
-from picamera import PiCamera
 
-PATH = 'http://localhost:5000/aicar/'
+PATH = 'http://172.22.129.15:5000/aicar/'
 r = requests.get(PATH  + 'connect')
-
-camera = PiCamera(resolution="160x120")
-camera.rotation = 180
-
-def capture(direction):
-    name = direction
-    cur_time = datetime.datetime.now().strftime("%I:%M:%S %M-%d")
-    name += "-" + cur_time
-    camera.capture("/home/pi/rc_cola/data/" + name + ".jpg", use_video_port=True)
-    
 
 
 while True:
@@ -34,8 +23,6 @@ while True:
         action = PATH + 'turnyboi'
         direction = 'down'
     
-    if direction:
-        capture(direction)
     if action:
         r = requests.get(action)
         
