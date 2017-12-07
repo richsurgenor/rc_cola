@@ -47,7 +47,7 @@ def turn_right(angle, time):
     driveConfig.write(bytes(b"\x74" +bytes([angle]) + bytes([time])))
     return "ok"
 
-@app.route('/aicar/turn-right/<int:angle>/<int:time>/<int:burst>', methods=['GET'])
+@app.route('/aicar/turn-right-burst/<int:angle>/<int:time>/<int:burst>', methods=['GET'])
 def turn_right_burst(angle, time, burst):
     for x in range (0, burst):
         driveConfig.write(bytes(b"\x73" +bytes([angle]) +bytes([time])))
@@ -59,6 +59,18 @@ def turn_left_burst(angle, time, burst):
         driveConfig.write(bytes(b"\x73" +bytes([angle]) +bytes([time])))
     return "ok"
 
+@app.route('/aicar/test/<string:vals>', methods=['GET'])
+def test(vals):
+    #aicar/test/43-43-55-63
+    # format: <type> <data>
+    # ex.   : 43 | 23 23 45 32 45 32 55
+    data = vals.split('-')
+    fmt_data = [int(x, 16) for x in data]
+    packet = bytes(fmt_data)
+    driveConfig.write(bytes(bytes(packet)))
+
+    return packet 
+    
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
 
