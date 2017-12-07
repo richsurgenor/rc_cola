@@ -1,3 +1,3 @@
 #! /bin/bash
 
-sudo ../cola/bin/python bot.py 
+sudo ../cola/bin/python bot_with_pics.py 

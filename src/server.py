@@ -9,8 +9,8 @@ global driveConfig
 
 @app.route('/aicar/connect/', methods=['GET'])
 def connect():
-    dev=btle.Peripheral("1c:0f:ea:24:f1:4e")
-    #dev=btle.Peripheral("1C:0F:99:E4:2E:BF")
+    #dev=btle.Peripheral("1c:0f:ea:24:f1:4e")
+    dev=btle.Peripheral("1C:0F:99:E4:2E:BF")
 
     driveCmd=btle.UUID("0000ffe5-0000-1000-8000-00805f9b34fb")
     driveService=dev.getServiceByUUID(driveCmd)
@@ -31,9 +31,9 @@ def forward_burst(speed, time, burst):
         driveConfig.write(bytes(b"\x71" + bytes([speed]) + bytes([time])))
     return "ok" 
 
-@app.route('/aicar/backward/<int:speed>/<int:time>', methods=['GET'])
-def backward(speed, time):
-    driveConfig.write(bytes(b"\x72" + bytes([speed]) + bytes([time])))
+@app.route('/aicar/turnyboi', methods=['GET'])
+def turnyboi():
+    driveConfig.write(bytes(b"\x74" + bytes([40]) + bytes([5])))
     return "ok" 
 
 @app.route('/aicar/turn-left/<int:angle>/<int:time>', methods=['GET'])
