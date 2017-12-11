@@ -23,11 +23,11 @@ while True:
         action = PATH + 'turnyboi'
         direction = 'down'
     if keyboard.is_pressed('h'):
-        action = PATH + '06-29-24'
+        action = PATH + 'test/06-29-24'
     if keyboard.is_pressed('g'):
-        action = PATH + '06-8-24'
+        action = PATH + 'test/06-8-24'
     if keyboard.is_pressed('f'):
-        action = PATH + '06-16-24'
+        action = PATH + 'test/06-16-24'
     
     if action:
         r = requests.get(action)
